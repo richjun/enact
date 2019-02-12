@@ -73,15 +73,6 @@ const VirtualListBaseFactory = (type) => {
 			itemsRenderer: PropTypes.func.isRequired,
 
 			/**
-			 * Animate while scrolling
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @private
-			 */
-			animate: PropTypes.bool,
-
-			/**
 			 * Callback method of scrollTo.
 			 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
 			 *
@@ -187,7 +178,6 @@ const VirtualListBaseFactory = (type) => {
 		}
 
 		static defaultProps = {
-			animate: false,
 			dataSize: 0,
 			isItemDisabled: isItemDisabledDefault,
 			pageScroll: false,
@@ -565,7 +555,7 @@ const VirtualListBaseFactory = (type) => {
 			const currentExtent = this.getExtentIndex(currentIndex);
 			let
 				nextIndex = -1,
-				animate = this.props.animate,
+				animate = true,
 				isWrapped = false,
 				spottableExtent = -1;
 
@@ -582,7 +572,7 @@ const VirtualListBaseFactory = (type) => {
 							// So we find nextIndex only when currentExtent is different from candidateExtent.
 							if (currentExtent !== candidateExtent) {
 								nextIndex = this.findNearestSpottableItemInExtent(currentIndex, candidateExtent);
-								animate = animate && (wrap === true);
+								animate = (wrap === true);
 								isWrapped = true;
 							}
 						}
@@ -610,7 +600,7 @@ const VirtualListBaseFactory = (type) => {
 							// So we find nextIndex only when currentExtent is different from candidateExtent.
 							if (currentExtent !== candidateExtent) {
 								nextIndex = this.findNearestSpottableItemInExtent(currentIndex, candidateExtent);
-								animate = animate && (wrap === true);
+								animate = (wrap === true);
 								isWrapped = true;
 							}
 						}
@@ -882,7 +872,6 @@ const VirtualListBaseFactory = (type) => {
 				{itemRenderer, itemsRenderer, ...rest} = this.props,
 				needsScrollingPlaceholder = this.isNeededScrollingPlaceholder();
 
-			delete rest.animate;
 			delete rest.initUiChildRef;
 			delete rest.isItemDisabled;
 			delete rest.spotlightId;
@@ -964,7 +953,6 @@ const ScrollableVirtualList = (props) => ( // eslint-disable-line react/jsx-no-b
 		childRenderer={(childProps) => ( // eslint-disable-line react/jsx-no-bind
 			<VirtualListBase
 				{...childProps}
-				animate={props.animate}
 				itemsRenderer={({cc, handlePlaceholderFocus, initItemContainerRef: initUiItemContainerRef, needsScrollingPlaceholder, primary}) => ( // eslint-disable-line react/jsx-no-bind
 					[
 						cc.length ? <div key="0" ref={initUiItemContainerRef} role="list">{cc}</div> : null,
@@ -985,15 +973,6 @@ const ScrollableVirtualList = (props) => ( // eslint-disable-line react/jsx-no-b
 );
 
 ScrollableVirtualList.propTypes = /** @lends moonstone/VirtualList.VirtualListBase.prototype */ {
-	/**
-	 * Animate while scrolling
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	animate: PropTypes.bool,
-
 	/**
 	 * Direction of the list.
 	 *
@@ -1018,7 +997,6 @@ const ScrollableVirtualListNative = (props) => (
 		childRenderer={(childProps) => ( // eslint-disable-line react/jsx-no-bind
 			<VirtualListBaseNative
 				{...childProps}
-				animate={props.animate}
 				itemsRenderer={({cc, handlePlaceholderFocus, initItemContainerRef: initUiItemContainerRef, needsScrollingPlaceholder, primary}) => ( // eslint-disable-line react/jsx-no-bind
 					[
 						cc.length ? <div key="0" ref={initUiItemContainerRef} role="list">{cc}</div> : null,
@@ -1040,15 +1018,6 @@ const ScrollableVirtualListNative = (props) => (
 
 ScrollableVirtualListNative.propTypes = /** @lends moonstone/VirtualList.VirtualListBaseNative.prototype */ {
 	/**
-	 * Animate while scrolling
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	animate: PropTypes.bool,
-
-	/**
 	 * Direction of the list.
 	 *
 	 * Valid values are:
@@ -1063,7 +1032,6 @@ ScrollableVirtualListNative.propTypes = /** @lends moonstone/VirtualList.Virtual
 };
 
 ScrollableVirtualListNative.defaultProps = {
-	animate: false,
 	direction: 'vertical'
 };
 
