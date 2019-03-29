@@ -48,7 +48,7 @@ import warning from 'warning';
 /**
  * @typedef {Object} KindConfig
  * @memberof core/kind
- * @property {String} name
+ * @property {String} [name]
  * @property {Object.<string, Function>} [propTypes]
  * @property {Object.<string, any>} [defaultProps]
  * @property {Object} [contextType]

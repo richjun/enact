@@ -12,7 +12,7 @@ import {accelerate, clearTransform, compose, reverse, slideInPartial, slideOutPa
  * @typedef {Object} Arranger
  * @property {Function} enter
  * @property {Function} leave
- * @property {Function} stay
+ * @property {Function} [stay]
  * @memberof ui/ViewManager
  */
 
